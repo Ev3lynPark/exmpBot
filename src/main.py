@@ -5,7 +5,7 @@ from discord.ext.commands import Bot, check, Context
 TOKEN = open("TOKEN", "r")
 
 
-intents = discord.Intents.default()
+intents = discord.Intents().all()
 intents.message_content = True
 
 client = Bot(intents=intents, command_prefix="*")
@@ -13,12 +13,20 @@ client = Bot(intents=intents, command_prefix="*")
 
 @client.event
 async def on_ready():
-    print(f'Logged on as {client.user}!')
+    await client.get_channel(1054730196072271893).send(f"im extremely gay")
 
 @client.event
 async def on_member_join(member):
-   print('bleh')
-   await client.get_channel(1054730196072271893).send(f"{member.name} has joined")
+    await client.get_channel(1054730196072271893).send(f"{member} is also gay")
+
+
+@client.event
+async def on_message(message):
+    if message.author.id == 1084800671112507422:
+        return
+    else:
+        await message.channel.send("gay")
+
 
 @client.command(pass_context=True, invoke_without_command=True)
 async def doxx(context: Context, arg):
